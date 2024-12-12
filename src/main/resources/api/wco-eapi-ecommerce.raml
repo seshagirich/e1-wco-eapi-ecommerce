@@ -15,15 +15,26 @@ protocols:
           application/json:
             example:
               {
-    "customerDetails": [
-    {
+          "customerDetails": [
+        {
         "locationCode__c": "gnt",
         "customerid__c": "12",
         "Id": null,
         "type": "eproducts__c",
         "Name": "green light"
-    }
-]
-  }
+          }
+        ]
+     }
 
-        
+/user:
+  get:
+    queryParameters:
+      page:
+        type: number
+        required: true
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/user-details-by-page-response-example.json
+           

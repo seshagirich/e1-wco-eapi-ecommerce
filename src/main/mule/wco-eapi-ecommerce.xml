@@ -4,9 +4,9 @@
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
     <apikit:config name="wco-eapi-ecommerce-config" api="wco-eapi-ecommerce.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-    <http:request-config name="HTTP_Request_configuration_for_sapi_cust_API" doc:name="HTTP Request configuration" doc:id="6f8d3fa2-4df2-4b5f-a054-b1d82875277c" >
-		<http:request-connection host="wco-sapi-soql-bl99t1.5sc6y6-2.usa-e2.cloudhub.io" />
-	</http:request-config>
+    <http:request-config name="HTTP_Request_configuration_for_sapi_cust_API" doc:name="HTTP Request configuration" doc:id="6f8d3fa2-4df2-4b5f-a054-b1d82875277c">
+        <http:request-connection host="wco-sapi-rest-bl99t1.5sc6y6-4.usa-e2.cloudhub.io" />
+    </http:request-config>
 	<flow name="wco-eapi-ecommerce-main">
         <http:listener config-ref="wco-eapi-ecommerce-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -100,15 +100,14 @@ output application/json
         </error-handler>
     </flow>
     <flow name="get:\customer\(customerid):wco-eapi-ecommerce-config">
-		<logger level="INFO" doc:name="s Logger" doc:id="197ba065-75cb-41eb-9003-92c7429dd0f0" message="*******start logger"/>
-		<ee:transform doc:name="Set customerid">
+        <logger level="INFO" doc:name="s Logger" doc:id="197ba065-75cb-41eb-9003-92c7429dd0f0" message="*******start logger" />
+        <ee:transform doc:name="Set customerid">
             <ee:variables>
                 <ee:set-variable variableName="customerid">attributes.uriParams.'customerid'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <http:request method="GET" doc:name="Request to sapi cust api" doc:id="58a078e9-b815-449b-b7bd-e6e3c2192da7" config-ref="HTTP_Request_configuration_for_sapi_cust_API" path='#["/api/customer/" ++ vars.customerid]'>
-		</http:request>
-		<ee:transform doc:name="response">
+        <http:request method="GET" doc:name="Request to sapi cust api" doc:id="58a078e9-b815-449b-b7bd-e6e3c2192da7" config-ref="HTTP_Request_configuration_for_sapi_cust_API" path="#[&quot;/api/customer/&quot; ++ vars.customerid]" />
+        <ee:transform doc:name="response">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -118,6 +117,28 @@ output application/json
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
-		<logger level="INFO" doc:name="e Logger" doc:id="2b3a98f1-5f2e-4740-a461-2979f40f0d55" message="*******end logger"/>
+        <logger level="INFO" doc:name="e Logger" doc:id="2b3a98f1-5f2e-4740-a461-2979f40f0d55" message="*******end logger" />
+    </flow>
+	<flow name="get:\user:wco-eapi-ecommerce-config">
+        <logger level="INFO" doc:name="====start====" doc:id="aa9735e8-2467-484d-81e6-a129b0afa0b0" message='#["====start===="]'/>
+		<set-variable value="#[attributes.queryParams.page]" doc:name="Set Variable" doc:id="70af84d7-efaa-42fd-8857-e0c22c8215e8" variableName="page"/>
+		<http:request method="GET" doc:name="Request" doc:id="9f8fbd36-5c56-4aeb-98a0-608eb9fd8157" config-ref="HTTP_Request_configuration_for_sapi_cust_API" path='/api/user'>
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"page" : vars.page
+}]]]></http:query-params>
+		</http:request>
+		<ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    userDetails: payload
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<logger level="INFO" doc:name="====end====" doc:id="b9e081a0-1f95-4fc3-bffe-4e7d04dc0ef0" message='#["====end===="]'/>
     </flow>
 </mule>
