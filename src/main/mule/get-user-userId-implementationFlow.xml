@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	
+	
+	<flow name="get:\user:wco-eapi-ecommerce-config">
+        <logger level="INFO" doc:name="====start====" doc:id="cb789f4b-42ef-49db-9154-6b3543f90468" message='#["====start===="]'/>
+		<flow-ref doc:name="commonStartLoggerFlowSub_Flow" doc:id="ddb62734-9712-4da4-bd18-51e0e30b5fe9" name="commonStartLoggerFlowSub_Flow"/>
+		<set-variable value="#[attributes.queryParams.page]" doc:name="Set Variable" doc:id="3fa5577c-740e-4e46-9246-daa1b6d5971a" variableName="page"/>
+		<http:request method="GET" doc:name="Request" doc:id="4f126d8e-3363-451d-aa1a-c2eac484a2e5" config-ref="HTTP_Request_configuration_fo_user_api" path='${user.sapi.request.path}' responseTimeout="${respones.timeout}">
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"page" : vars.page
+}]]]></http:query-params>
+		</http:request>
+		<ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    userDetails: payload
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<flow-ref doc:name="commonEndLoggerFlowSub_Flow" doc:id="0848c4bd-8ea2-4d7c-a98c-1a0b75737c05" name="commonEndLoggerFlowSub_Flow"/>
+		<logger level="INFO" doc:name="====end====" doc:id="aad84702-7f9f-479d-9ec7-99beb0b10115" message='#["====end===="]'/>
+		<error-handler ref="wco-eapi-ErrorHandlingFlowError_Handler" />
+    </flow>
+	</mule>

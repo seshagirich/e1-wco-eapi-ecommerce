@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	
+	
+	    <http:listener-config name="wco-eapi-ecommerce-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+    <apikit:config name="wco-eapi-ecommerce-config" api="wco-eapi-ecommerce.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <http:request-config name="HTTP_Request_configuration_for_sapi_cust_API" doc:name="HTTP Request configuration" doc:id="041fd520-d405-498f-84a1-55cb83e3e8f0">
+        <http:request-connection host="${customer.sapi.request.host}" />
+    </http:request-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="f7a47d21-0334-4d6e-82ad-b46232cdc4f3" file="dev.properties" />
+	
+	    <http:request-config name="HTTP_Request_configuration_fo_user_api" doc:name="HTTP Request configuration" doc:id="259b57e0-d88a-4309-84c4-a1f7d84d3c13">
+        <http:request-connection host="${user.sapi.request.host}" />
+    </http:request-config>
+	
+</mule>

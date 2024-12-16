@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	
+	  <flow name="get:\customer\(customerid):wco-eapi-ecommerce-config">
+        <logger level="INFO" doc:name="s Logger" doc:id="f537df6e-c156-455b-b84e-ff15eff7bb70" message="*******start logger" />
+        <flow-ref doc:name="commonStartLoggerFlowSub_Flow" doc:id="0cc8d1a2-32ce-4be0-87e0-978715de6c77" name="commonStartLoggerFlowSub_Flow"/>
+		<ee:transform doc:name="Set customerid">
+            <ee:variables>
+                <ee:set-variable variableName="customerid">attributes.uriParams.'customerid'</ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <http:request method="GET" doc:name="Request to sapi cust api" doc:id="cd11dee1-7ad1-4124-b100-859970599c12" config-ref="HTTP_Request_configuration_for_sapi_cust_API" path="#[Mule::p('customer.sapi.request.path') ++ vars.customerid]" responseTimeout="${respones.timeout}"/>
+        <ee:transform doc:name="response">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    customerDetails: payload
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <flow-ref doc:name="commonEndLoggerFlowSub_Flow" doc:id="cc9cebdb-14a4-4d79-99fe-31b8dbb50646" name="commonEndLoggerFlowSub_Flow"/>
+		<logger level="INFO" doc:name="e Logger" doc:id="e9153a6b-097e-4714-8bb6-d2055fb5eb5d" message="*******end logger" />
+		<error-handler ref="wco-eapi-ErrorHandlingFlowError_Handler" />
+    </flow>
+	
+	</mule>
