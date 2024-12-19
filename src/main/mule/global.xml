@@ -21,5 +21,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	    <http:request-config name="HTTP_Request_configuration_fo_user_api" doc:name="HTTP Request configuration" doc:id="259b57e0-d88a-4309-84c4-a1f7d84d3c13">
         <http:request-connection host="${user.sapi.request.host}" />
     </http:request-config>
+    
 	
 </mule>
