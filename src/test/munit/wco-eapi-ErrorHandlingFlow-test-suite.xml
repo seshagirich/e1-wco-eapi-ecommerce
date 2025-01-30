@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="wco-eapi-ErrorHandlingFlow-test-suite.xml" />
+
+
+
+
+
+
+
+<munit:test name="customererrofFlow" doc:id="da07449d-e4d6-439e-ab45-03c7fa2c3a8f" description="Test" expectedErrorType="MULE:UNKNOWN">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="da264693-de1e-426c-b6f2-d72557708ae2" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Request to sapi cust api" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="MULE:UNKNOWN" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="get:\customer\(customerid):wco-eapi-ecommerce-config" doc:id="fc998b54-edbc-4fd9-8ae1-146798865acb" name="get:\customer\(customerid):wco-eapi-ecommerce-config"/>
+		</munit:execution>
+	</munit:test>
+	
+
+
+
+
+
+</mule>

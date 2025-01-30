@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="post-accountValidate-test-suite.xml" />
+	<munit:test name="post-accountValidate-test-suite-post:\accountValidate:application\json:wco-eapi-ecommerce-configTest" doc:id="78553bf2-1b8e-4fbe-b5d3-4580a832a230" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="http:request" doc:id="12633a37-d049-4b3c-afd9-61d2a3d32418" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Request" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="22375743-1fcc-4688-84eb-fff40be3d85b" >
+				<munit:payload value='#[{&#10;        "id": 13,&#10;        "name": "John Doe",&#10;        "department": "Engineering"&#10;    }]' mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\accountValidate:application\json:wco-eapi-ecommerce-config" doc:id="a19f69c1-1afb-44fa-956b-75dd693a184a" name="post:\accountValidate:application\json:wco-eapi-ecommerce-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="ad75b1ef-90ae-4873-9433-b1deca15dda6" processor="logger">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="====end====" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

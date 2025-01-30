@@ -12,10 +12,12 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<flow name="post:\accountValidate:application\json:wco-eapi-ecommerce-config">
 		<logger level="INFO" doc:name="====end====" doc:id="2b6a4050-1596-481d-84ad-e4ffdf36476a" message="====end===="/>
 		<flow-ref doc:name="commonStartLoggerFlowSub_Flow" doc:id="a8925541-a945-4596-b3ec-1e4f76e0c93e" name="commonStartLoggerFlowSub_Flow"/>
-		<http:request method="POST" doc:name="Request" doc:id="9aa4cd90-d1cf-4eff-ab0d-03ee73ddb492" config-ref="HTTP_Request_configuration" path="${accountValidate.papi.request.path}"/>
+		<http:request method="POST" doc:name="Request" doc:id="9aa4cd90-d1cf-4eff-ab0d-03ee73ddb492" config-ref="HTTP_Request_configuration" path="${accountValidate.papi.request.path}" responseTimeout="${respones.timeout}"/>
 		<logger level="INFO" doc:name="Logger" doc:id="c89c4555-ec12-43a8-9790-637e322de48f" message="====#[payload]==="/>
 		<flow-ref doc:name="commonEndLoggerFlowSub_Flow" doc:id="565518e8-ff9a-4eef-aaff-6adb07f8768d" name="commonEndLoggerFlowSub_Flow"/>
 		<logger level="INFO" doc:name="====start====" doc:id="dfbd1e6c-ada7-4860-a0c8-9be7c06d37fa" message="====start===="/>
-    </flow>
+		<error-handler ref="wco-eapi-ErrorHandlingFlowError_Handler" />
+    
+</flow>
 	
 	</mule>

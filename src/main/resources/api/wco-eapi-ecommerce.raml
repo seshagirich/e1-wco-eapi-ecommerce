@@ -58,4 +58,22 @@ protocols:
 
 
 
+
+/emailSignup:
+  post:
+    body:
+      application/json:
+        type: !include /datatypes/emailsignup-request-dataType.raml
+        example: !include examples/emailsignup-request-file.json
+         
+    responses:
+      200:
+        body:
+          application/json:
+            type: !include /datatypes/emailsignup-response-dataType.raml
+            example: !include examples/emailsignup-response-file.json
+
+                 
+
+
            

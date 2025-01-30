@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	
+	
+	 <http:request-config name="HTTP_Request_configuration1" doc:name="HTTP Request configuration" doc:id="ef1b899f-153d-49b4-aa49-a7012e36ae4e" >
+		<http:request-connection protocol="HTTPS" host="${emailsignup.sapi.request.host}" >
+			<tls:context >
+				<tls:trust-store insecure="true" />
+			</tls:context>
+		</http:request-connection>
+	</http:request-config>
+	<flow name="post:\emailSignup:application\json:wco-eapi-ecommerce-config">
+        <logger level="INFO" doc:name="===start flow===" doc:id="c8520282-e8db-4bf6-919c-7ffaf5ff7f7c" message="===start flow==="/>
+		<flow-ref doc:name="commonStartLoggerFlowSub_Flow" doc:id="9cd6b36e-2146-443a-a09d-cae93e2a6bef" name="commonStartLoggerFlowSub_Flow"/>
+		<http:request method="POST" doc:name="email-sapi-Request" doc:id="c2778d2b-a068-43d0-9faa-f05f8ed50993" config-ref="HTTP_Request_configuration1" path="${emailsignup.sapi.request.path}"/>
+		<flow-ref doc:name="commonEndLoggerFlowSub_Flow" doc:id="97407380-448c-4e01-a07d-3b9e72f3ebb6" name="commonEndLoggerFlowSub_Flow"/>
+		<logger level="INFO" doc:name="===end flow===" doc:id="1e8425e8-f93d-4332-9abb-fd787f92f5e7" message="===end flow==="/>
+    
+</flow>
+	
+	</mule>

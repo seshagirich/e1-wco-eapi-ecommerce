@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="wco-eapi-ecommerce-test-suite.xml" />
+	<munit:test name="BAD_REQUEST" doc:id="4fadfd4f-834d-4c2f-8260-1ef4662e05aa" description="Test" expectedErrorType="APIKIT:BAD_REQUEST" ignore="true">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="d4b3019a-9b5e-4dc5-93e5-b34da1aad893" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="wco-eapi-ecommerce-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:BAD_REQUEST" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to wco-eapi-ecommerce-main" doc:id="641cf0ff-d9df-4c27-9cd2-3c3b488310bd" name="wco-eapi-ecommerce-main"/>
+		</munit:execution>
+	</munit:test>
+<munit:test name="APIKIT:NOT_FOUND" doc:id="005bc347-9594-4660-88b0-b6bfc6eb34a4" description="Test" expectedErrorType="APIKIT:NOT_FOUND" ignore="true">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="ca03235b-2577-4670-8b75-773fe7d868b9" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="wco-eapi-ecommerce-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to wco-eapi-ecommerce-main" doc:id="b5e93d8f-872d-4e06-b06d-d1fba6bf89f5" name="wco-eapi-ecommerce-main"/>
+		</munit:execution>
+	</munit:test>
+
+
+
+
+<munit:test name="NOT_FOUND" doc:id="e5fb25bb-444a-4dcc-8ba9-b5b3a2d43cc5" description="Test" expectedErrorType="APIKIT:NOT_FOUND" ignore="true">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="ca7bd7ce-c1d4-4d0a-bf10-18cde1a2bbd3" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="wco-eapi-ecommerce-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to wco-eapi-ecommerce-main" doc:id="6055038b-c5f3-4143-96a2-54c105465741" name="wco-eapi-ecommerce-main"/>
+		</munit:execution>
+	</munit:test>
+
+	
+	
+	
+	
+	<munit:test name="METHOD_NOT_ALLOWED" doc:id="d6568d7a-e4fd-4e51-ae13-4d23d16bb86d" description="Test" expectedErrorType="APIKIT:METHOD_NOT_ALLOWED" ignore="true">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="787f9b7f-a85e-4e7a-accd-f1ef62cab777" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="wco-eapi-ecommerce-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:METHOD_NOT_ALLOWED" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to wco-eapi-ecommerce-main" doc:id="d28cc446-5a50-4359-991f-53434956e2d9" name="wco-eapi-ecommerce-main"/>
+		</munit:execution>
+	</munit:test>
+	
+		
+		
+		
+		
+			<munit:test name="NOT_ACCEPTABLE" doc:id="42ab2db1-20e6-4771-a9da-b0a6ff45e5e8" description="Test" expectedErrorType="APIKIT:NOT_ACCEPTABLE" ignore="true">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="9de30b4d-8879-4798-9235-f3cdd45696ff" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="wco-eapi-ecommerce-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_ACCEPTABLE" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to wco-eapi-ecommerce-main" doc:id="10a756a3-293b-4adb-b328-0a869eecd990" name="wco-eapi-ecommerce-main"/>
+		</munit:execution>
+	</munit:test>
+		
+		
+		
+		<munit:test name="UNSUPPORTED_MEDIA_TYPE" doc:id="01ace859-73f7-4e6c-b313-2b5ee892bce0" description="Test" expectedErrorType="APIKIT:UNSUPPORTED_MEDIA_TYPE" ignore="true">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="ae1cf7fc-cb7e-4c4d-8576-2ed698870cad" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="wco-eapi-ecommerce-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to wco-eapi-ecommerce-main" doc:id="740b929b-0b8c-47e5-b254-dc89cbecfca9" name="wco-eapi-ecommerce-main"/>
+		</munit:execution>
+	</munit:test>
+		
+		
+		
+		
+		<munit:test name="NOT_IMPLEMENTED" doc:id="59210107-411b-44a7-ba36-576bade6da1d" description="Test" expectedErrorType="APIKIT:NOT_IMPLEMENTED" ignore="true">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="0e382824-692e-4f22-96e1-42c7c2d0eb8e" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="wco-eapi-ecommerce-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_IMPLEMENTED" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to wco-eapi-ecommerce-main" doc:id="82fc804c-86a5-40ca-90e0-3625c9dafd12" name="wco-eapi-ecommerce-main"/>
+		</munit:execution>
+	</munit:test>
+		
+		
+		
+		
+</mule>

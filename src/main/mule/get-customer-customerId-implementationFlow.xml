@@ -8,7 +8,7 @@
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 	
-	  <flow name="get:\customer\(customerid):wco-eapi-ecommerce-config">
+	  <flow name="get:\customer\(customerid):wco-eapi-ecommerce-config" doc:id="d931960e-e889-46bf-81ca-b8b9cb45853f">
         <logger level="INFO" doc:name="s Logger" doc:id="f537df6e-c156-455b-b84e-ff15eff7bb70" message="*******start logger" />
         <flow-ref doc:name="commonStartLoggerFlowSub_Flow" doc:id="0cc8d1a2-32ce-4be0-87e0-978715de6c77" name="commonStartLoggerFlowSub_Flow"/>
 		<ee:transform doc:name="Set customerid">

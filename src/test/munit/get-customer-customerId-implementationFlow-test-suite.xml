@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="get-customer-customerId-implementationFlow-test-suite.xml" />
+	<munit:test name="get-customer-customerId-implementationFlow-test-suite-get:\customer\(customerid):wco-eapi-ecommerce-configTest" doc:id="e757f5fb-41bd-4118-b362-35723f2dfe67" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="ee:transform" doc:id="5db4ffa7-ebd0-4efb-a2a1-2550a2bad8a9" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Request to sapi cust api" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="301a70e7-2176-45a3-ba98-6e5a5344ae8d" >
+				<munit:attributes value="#[{ uriParams : { &quot;customerid&quot; : '13'}}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\customer\(customerid):wco-eapi-ecommerce-config" doc:id="92a3b704-7ee4-450d-bed3-de9bb5f8a8f6" name="get:\customer\(customerid):wco-eapi-ecommerce-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="0fd6168f-f51e-4cfb-9271-61d1574b3ecd" processor="logger">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e Logger" attributeName="doc:name" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
