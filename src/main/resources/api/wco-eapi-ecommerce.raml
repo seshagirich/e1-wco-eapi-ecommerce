@@ -4,11 +4,19 @@ protocols:
   - HTTP
   - HTTPS
 
+
+
+
+traits:
+  jwt: !include /exchange-module-v1/trait-JWT-Policy.raml
+
+
 /customer/{customerid}:
   uriParameters:
     customerid:
       type: number
   get:
+    is: [jwt]
     responses:
       200:
         body:
@@ -28,6 +36,7 @@ protocols:
 
 /user:
   get:
+    is: [jwt]
     queryParameters:
       page:
         type: number
@@ -40,6 +49,7 @@ protocols:
 
 /accountValidate:
   post:
+    is: [jwt]
     body:
       application/json:
         example:
@@ -61,6 +71,7 @@ protocols:
 
 /emailSignup:
   post:
+    is: [jwt]
     body:
       application/json:
         type: !include /datatypes/emailsignup-request-dataType.raml

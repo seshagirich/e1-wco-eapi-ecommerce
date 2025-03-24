@@ -16,7 +16,14 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
                 <ee:set-variable variableName="customerid">attributes.uriParams.'customerid'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <http:request method="GET" doc:name="Request to sapi cust api" doc:id="cd11dee1-7ad1-4124-b100-859970599c12" config-ref="HTTP_Request_configuration_for_sapi_cust_API" path="#[Mule::p('customer.sapi.request.path') ++ vars.customerid]" responseTimeout="${respones.timeout}"/>
+        <http:request method="GET" doc:name="Request to sapi cust api" doc:id="cd11dee1-7ad1-4124-b100-859970599c12" config-ref="HTTP_Request_configuration_for_sapi_cust_API" path="#[Mule::p('customer.sapi.request.path') ++ vars.customerid]" responseTimeout="${respones.timeout}">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : Mule::p('sapi.ClientIDPolicy.client_secret'),
+	"client_id" : Mule::p('sapi.ClientIDPolicy.client_id')
+}]]]></http:headers>
+		</http:request>
         <ee:transform doc:name="response">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0

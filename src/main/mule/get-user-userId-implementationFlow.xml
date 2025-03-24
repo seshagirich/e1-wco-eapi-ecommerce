@@ -14,6 +14,12 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<flow-ref doc:name="commonStartLoggerFlowSub_Flow" doc:id="ddb62734-9712-4da4-bd18-51e0e30b5fe9" name="commonStartLoggerFlowSub_Flow"/>
 		<set-variable value="#[attributes.queryParams.page]" doc:name="Set Variable" doc:id="3fa5577c-740e-4e46-9246-daa1b6d5971a" variableName="page"/>
 		<http:request method="GET" doc:name="Request" doc:id="4f126d8e-3363-451d-aa1a-c2eac484a2e5" config-ref="HTTP_Request_configuration_fo_user_api" path='${user.sapi.request.path}' responseTimeout="${respones.timeout}">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : Mule::p('sapi.ClientIDPolicy.client_secret'),
+	"client_id" : Mule::p('sapi.ClientIDPolicy.client_id')
+}]]]></http:headers>
 			<http:query-params ><![CDATA[#[output application/java
 ---
 {

@@ -19,7 +19,14 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 	<flow name="post:\emailSignup:application\json:wco-eapi-ecommerce-config">
         <logger level="INFO" doc:name="===start flow===" doc:id="c8520282-e8db-4bf6-919c-7ffaf5ff7f7c" message="===start flow==="/>
 		<flow-ref doc:name="commonStartLoggerFlowSub_Flow" doc:id="9cd6b36e-2146-443a-a09d-cae93e2a6bef" name="commonStartLoggerFlowSub_Flow"/>
-		<http:request method="POST" doc:name="email-sapi-Request" doc:id="c2778d2b-a068-43d0-9faa-f05f8ed50993" config-ref="HTTP_Request_configuration1" path="${emailsignup.sapi.request.path}"/>
+		<http:request method="POST" doc:name="email-sapi-Request" doc:id="c2778d2b-a068-43d0-9faa-f05f8ed50993" config-ref="HTTP_Request_configuration1" path="${emailsignup.sapi.request.path}">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : Mule::p('sapi.ClientIDPolicy.client_secret'),
+	"client_id" : Mule::p('sapi.ClientIDPolicy.client_id')
+}]]]></http:headers>
+		</http:request>
 		<flow-ref doc:name="commonEndLoggerFlowSub_Flow" doc:id="97407380-448c-4e01-a07d-3b9e72f3ebb6" name="commonEndLoggerFlowSub_Flow"/>
 		<logger level="INFO" doc:name="===end flow===" doc:id="1e8425e8-f93d-4332-9abb-fd787f92f5e7" message="===end flow==="/>
     

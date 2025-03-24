@@ -95,5 +95,4 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-   
 </mule>
